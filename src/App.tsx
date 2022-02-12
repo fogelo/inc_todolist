@@ -13,7 +13,13 @@ function App() {
         {id: v1(), title: 'React', isDone: false},
         {id: v1(), title: 'Redux', isDone: false},
     ])
+    console.log(tasks)
     let [filter, setFilter] = useState('all')
+
+    function addTask(title: string) {
+        let newTasks = [...tasks, {id: v1(), title: title, isDone: true}]
+        setTasks(newTasks)
+    }
 
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(task => task.id !== id)
@@ -38,6 +44,7 @@ function App() {
                       tasks={tasksForToDoList}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
+                      addTask={addTask}
             />
 
         </div>
