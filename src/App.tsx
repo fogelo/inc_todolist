@@ -6,25 +6,33 @@ import {v1} from 'uuid';
 export type FilterValueType = 'all' | 'active' | 'completed'
 
 function App() {
-
     let [tasks, setTasks] = useState<Array<TaskType>>([
         {id: v1(), title: 'CSS', isDone: true},
         {id: v1(), title: 'JS', isDone: true},
         {id: v1(), title: 'React', isDone: false},
         {id: v1(), title: 'Redux', isDone: false},
     ])
-    console.log(tasks)
-    let [filter, setFilter] = useState('all')
+    let [filter, setFilter] = useState<FilterValueType>('all')
 
-    function addTask(title: string) {
-        let newTasks = [...tasks, {id: v1(), title: title, isDone: true}]
-        setTasks(newTasks)
-    }
 
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(task => task.id !== id)
         setTasks(filteredTasks)
     }
+
+    function addTask(title: string) {
+        let newTasks = [...tasks, {id: v1(), title: title, isDone: false}]
+        setTasks(newTasks)
+    }
+
+    function changeStatus(taskId: string, isDone: boolean) {
+        let task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
+    }
+
 
     function changeFilter(value: FilterValueType) {
         setFilter(value)
@@ -45,8 +53,9 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}
+                      changeTaskStatus={changeStatus}
+                      filter={filter}
             />
-
         </div>
     );
 }
