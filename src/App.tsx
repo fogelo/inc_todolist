@@ -21,7 +21,14 @@ function App() {
         } else {
             return
         }
+    }
 
+    function addTaskByEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.code === 'Enter' && inputValue) {
+            const newTask = {id: v1(), title: inputValue, isDone: false}
+            setTasks([...tasks, newTask])
+            setInputValue('')
+        }
     }
 
     function removeTask(id: string) {
@@ -30,7 +37,7 @@ function App() {
 
     function changeCheckbox(id: string) {
         let task = tasks.find(item => item.id === id)
-        if(task){
+        if (task) {
             task.isDone = !task.isDone
             setTasks([...tasks])
         }
@@ -40,12 +47,13 @@ function App() {
     return (
         <div className="App">
             <div>What to learn</div>
-            <input value={inputValue} onChange={(e) => setInputValue(e.currentTarget.value)} type="text"/>
+            <input onKeyPress={(e) => addTaskByEnter(e)} value={inputValue}
+                   onChange={(e) => setInputValue(e.currentTarget.value)} type="text"/>
             <button onClick={addTask}>+</button>
 
             <ul>
                 {tasks.map(item => <li key={item.id}>
-                    <input onClick={() => changeCheckbox(item.id)} checked={item.isDone} type="checkbox"/>
+                    <input onChange={() => changeCheckbox(item.id)} checked={item.isDone} type="checkbox"/>
                     {item.title}
                     <button onClick={() => removeTask(item.id)}>-</button>
                 </li>)}
