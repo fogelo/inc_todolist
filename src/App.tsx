@@ -8,7 +8,6 @@ type TaskType = {
     isDone: boolean
 }
 
-
 const initialState = [
     {id: v1(), title: 'html', isDone: true},
     {id: v1(), title: 'css', isDone: true},
@@ -21,6 +20,7 @@ function App() {
     let [tasks, setTasks] = useState<Array<TaskType>>(initialState)
     let [inputValue, setInputValue] = useState('')
     let [error, setError] = useState(false)
+    let [filter, setFilter] = useState('all')
 
     function addTask() {
         if (inputValue) {
@@ -55,7 +55,14 @@ function App() {
             task.isDone = !task.isDone
             setTasks([...tasks])
         }
+    }
 
+    let filteredTasks = tasks
+    if (filter === 'active') {
+        filteredTasks = tasks.filter(item => !item.isDone)
+    }
+    if (filter === 'completed') {
+        filteredTasks = tasks.filter(item => item.isDone)
     }
 
     return (
@@ -71,7 +78,7 @@ function App() {
                 </div>
 
                 <ul>
-                    {tasks.map(item => <li className={item.isDone ? 'isDone' : ''} key={item.id}>
+                    {filteredTasks.map(item => <li className={item.isDone ? 'isDone' : ''} key={item.id}>
                         <input onChange={() => changeCheckbox(item.id)} checked={item.isDone} type="checkbox"/>
                         <button onClick={() => removeTask(item.id)}>x</button>
                         <div>
@@ -79,6 +86,14 @@ function App() {
                         </div>
                     </li>)}
                 </ul>
+
+                <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>all</button>
+                <button className={filter === 'active' ? 'active' : ''}
+                        onClick={() => setFilter('active')}>active
+                </button>
+                <button className={filter === 'completed' ? 'active' : ''}
+                        onClick={() => setFilter('completed')}>completed
+                </button>
             </div>
 
         </div>

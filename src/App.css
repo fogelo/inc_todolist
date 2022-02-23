@@ -28,3 +28,7 @@ li > *:not(:first-child) {
 .message-error {
     color: red;
 }
+
+.active {
+    background: aquamarine;
+}
