@@ -1,6 +1,11 @@
 .App {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
+}
+
+.App>* {
+    margin-left: 30px;
+    /*justify-content: space-between;*/
 }
 
 .error {
