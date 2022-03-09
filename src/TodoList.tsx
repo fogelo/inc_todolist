@@ -66,8 +66,8 @@ export function TodoList(props: PropsType) { //props = {title: 'What to learn', 
                                     checked={task.isDone}
                                     onChange={onChangeStatusHandler}/>
                                 <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
-                                <IconButton onClick={onClickHandler}>
-                                    <DeleteIcon/>
+                                <IconButton onClick={onClickHandler} >
+                                    <DeleteIcon fontSize="small"/>
                                 </IconButton>
                             </div>
                         }

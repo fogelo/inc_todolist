@@ -47,7 +47,7 @@ export function AddItemForm(props: AddItemFormType) {
                 helperText={error}
             />
             <IconButton onClick={addTask}
-                    color={'primary'}
+                        color={'primary'}
             ><AddCircleOutlineIcon/> </IconButton>
         </div>
     )
