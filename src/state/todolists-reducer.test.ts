@@ -37,8 +37,8 @@ test('correct todolist should be added', () => {
     let newTodolistTitle = 'new todolist'
     const endState = todolistReducer(startState, addTodolistAC(newTodolistTitle))
     expect(endState.length).toBe(3)
-    expect(endState[2].title).toBe('new todolist')
-    expect(endState[2].filter).toBe('all')
+    expect(endState[0].title).toBe('new todolist')
+    expect(endState[0].filter).toBe('all')
 })
 
 test('correct todolist should change its name', () => {
@@ -50,7 +50,7 @@ test('correct todolist should change its name', () => {
         {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
 
-    const action = changeTodolistTitleAC(todolistId2, newTodolistTitle)
+    const action = changeTodolistTitleAC(newTodolistTitle, todolistId2)
 
     const endState = todolistReducer(startState, action)
     expect(endState[0].title).toBe('What to learn')
@@ -65,7 +65,7 @@ test('correct filter of todolist should be changed', ()=>{
         {id: todolistId2, title: 'What to buy', filter: 'all'},
     ]
 
-    const action = changeTodolistFilterAC(todolistId2, 'completed')
+    const action = changeTodolistFilterAC('completed', todolistId2)
     const endState = todolistReducer(startState, action)
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe('completed')
