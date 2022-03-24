@@ -6,7 +6,8 @@ type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormType) {
+export const AddItemForm = React.memo((props: AddItemFormType) => {
+    console.log('AddItemForm')
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
@@ -15,7 +16,9 @@ export function AddItemForm(props: AddItemFormType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
+        if (error !== null) {
+            setError(null)
+        }
         if (title.trim() === '') {
             return
         }
@@ -51,4 +54,4 @@ export function AddItemForm(props: AddItemFormType) {
             ><AddCircleOutlineIcon/> </IconButton>
         </div>
     )
-}
+})
