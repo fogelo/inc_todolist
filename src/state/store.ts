@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 // }
 
 // дай мне тип данных который возвращает функция rootReducer
-export type AppRootStore = ReturnType<typeof rootReducer>
+export type AppRootStoreType = ReturnType<typeof rootReducer>
 
 
 
