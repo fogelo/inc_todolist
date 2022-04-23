@@ -2,12 +2,14 @@ import {Provider} from 'react-redux';
 import {AppRootStoreType} from '../app/store';
 import {combineReducers, createStore} from 'redux';
 import {tasksReducer} from '../features/TodolistList/tasks-reducer';
-import { todolistReducer} from '../features/TodolistList/todolists-reducer';
+import {todolistReducer} from '../features/TodolistList/todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../api/todolists-api';
+import {appReducer} from '../app/app-reducer';
 
 const rootState = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistReducer
+    todolists: todolistReducer,
+    app: appReducer
 })
 
 
@@ -24,7 +26,8 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId1',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
             {
                 id: '2',
                 title: 'js',
@@ -35,7 +38,8 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId1',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
             {
                 id: '3',
                 title: 'react',
@@ -46,7 +50,8 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId1',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
         ],
         'todolistId2': [
             {
@@ -59,7 +64,8 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId2',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
             {
                 id: '2',
                 title: 'milk',
@@ -70,7 +76,8 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId2',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
             {
                 id: '3',
                 title: 'tea',
@@ -81,19 +88,25 @@ const initialGlobalState: AppRootStoreType = {
                 deadline: '',
                 startDate: '',
                 todoListId: 'todolistId2',
-                priority: TaskPriorities.Low},
+                priority: TaskPriorities.Low
+            },
         ]
     },
     todolists: [
         {
-            id: 'todolistId1', title: 'What to learn', filter: 'all', addedDate: '',
+            id: 'todolistId1', title: 'What to learn', filter: 'all', entityStatus: 'idle', addedDate: '',
             order: 0
         },
         {
-            id: 'todolistId2', title: 'What to buy', filter: 'all', addedDate: '',
+            id: 'todolistId2', title: 'What to buy', filter: 'all', entityStatus: 'idle', addedDate: '',
             order: 0
         },
-    ]
+    ],
+    app: {
+        status: 'idle',
+        error: null
+
+    }
 }
 
 

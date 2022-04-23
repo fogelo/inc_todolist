@@ -2,6 +2,7 @@ import {AddTodolistAT, RemoveTodolistAT, SetTodolistsAT} from './todolists-reduc
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskRequestType} from '../../api/todolists-api';
 import {Dispatch} from 'redux';
 import {AppRootStoreType} from '../../app/store';
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from '../../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -48,10 +49,12 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
     ({type: 'SET-TASKS', tasks, todolistId} as const)
 
 //thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionType>) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionType | SetStatusActionType>) => {
+    dispatch(setStatusAC('loading'))
     todolistsAPI.getTasks(todolistId)
         .then(response => {
             dispatch(setTasksAC(response.data.items, todolistId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 
@@ -65,11 +68,26 @@ export const removeTaskTC = (id: string, todolistId: string) => (dispatch: Dispa
         })
 }
 
-export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionType>) => {
+export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionType | SetErrorActionType | SetStatusActionType>) => {
+    dispatch(setStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(response => {
-            const action = addTaskAC(response.data.data.item)
-            dispatch(action)
+            if (response.data.resultCode === 0) {
+                const action = addTaskAC(response.data.data.item)
+                dispatch(action)
+                dispatch(setStatusAC('succeeded'))
+
+            } else {
+                if (response.data.messages.length) {
+                    const action = setErrorAC(response.data.messages[0])
+                    dispatch(action)
+                } else {
+                    const action = setErrorAC('some error')
+                    dispatch(action)
+                }
+                dispatch(setStatusAC('failed'))
+
+            }
         })
 }
 
