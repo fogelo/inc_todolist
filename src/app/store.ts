@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {todolistReducer} from './todolists-reducer';
-import {tasksReducer} from './tasks-reducer';
+import {todolistReducer} from '../features/TodolistList/todolists-reducer';
+import {tasksReducer} from '../features/TodolistList/tasks-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 const rootReducer = combineReducers({
