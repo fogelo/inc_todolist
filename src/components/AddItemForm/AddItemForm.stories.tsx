@@ -13,3 +13,6 @@ export const AddItemFormBaseExample = () => {
     // return <AddItemForm addItem={(title: string) => alert(title)}/>
     return <AddItemForm addItem={callback}/> //выведет сообщение, которое мы передали в action и значение, которое передается в callback
 }
+export const AddItemFormDisabledExample = () => {
+    return <AddItemForm addItem={callback} disabled={true}/>
+}

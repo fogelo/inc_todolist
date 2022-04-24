@@ -13,8 +13,11 @@ import {useSelector} from 'react-redux';
 import {AppRootStoreType} from './store';
 import {RequestStatusType} from './app-reducer';
 
+type AppPT = {
+    demo?: boolean
+}
 
-function App() {
+function App({demo = false}: AppPT) {
     console.log('App')
     const status = useSelector<AppRootStoreType, RequestStatusType>(state => state.app.status)
     return (
@@ -33,7 +36,7 @@ function App() {
             </AppBar>
 
             <Container fixed>
-                <TodolistList/>
+                <TodolistList demo={demo}/>
             </Container>
         </div>
     )

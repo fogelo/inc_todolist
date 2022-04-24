@@ -1,13 +1,13 @@
-import App from './App';
+import App from '../app/App';
 import {ReduxStoriesProviderDecorator} from '../stories/ReduxStoriesProviderDecorator';
 
 export default {
-    title: 'AppWithRedux component',
+    title: 'App component',
     component: App,
     decorators: [ReduxStoriesProviderDecorator]
 }
 
 
-export const AppWithReduxBaseExample = () => {
-    return <App/>
+export const AppBaseExample = () => {
+    return <App demo={true}/>
 }
