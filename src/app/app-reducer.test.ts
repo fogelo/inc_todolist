@@ -1,4 +1,4 @@
-import {appReducer, InitialAppStateType, setErrorAC, setAppStatusAC} from './app-reducer';
+import {appReducer, InitialAppStateType, setAppErrorAC, setAppStatusAC} from './app-reducer';
 
 let startState: InitialAppStateType
 
@@ -17,7 +17,7 @@ test('status should be set', () => {
     expect(endState.error).toBe(null)
 })
 test('error message should be set', () => {
-    const action = setErrorAC('some error')
+    const action = setAppErrorAC('some error')
     const endState = appReducer(startState, action)
 
     expect(endState.status).toBe('idle')
