@@ -14,22 +14,29 @@ import {
 import {Grid, Paper} from '@mui/material';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {TodoList} from './Todolist/TodoList';
+import {useNavigate} from 'react-router-dom';
 
 type TodolistListPT = {
     demo?: boolean
 }
 export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const todolists = useSelector<AppRootStoreType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStoreType, TasksStateType>(state => state.tasks)
-
+    const isLoggedIn = useSelector<AppRootStoreType>(state => state.auth.isLoggedIn)
 
     useEffect(() => {
         if (demo) {
             return
         }
-        dispatch(fetchTodolistsTC())
-    }, [])
+        if (!isLoggedIn) {
+            // debugger
+            navigate('/login')
+        }
+        isLoggedIn && dispatch(fetchTodolistsTC())
+    }, [isLoggedIn])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
         const thunk = removeTaskTC(id, todolistId)
@@ -72,6 +79,7 @@ export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
         const thunk = addTodolistTC(title)
         dispatch(thunk)
     }, [])
+
 
     return (
         <>
