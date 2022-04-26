@@ -56,6 +56,7 @@ function App({demo = false}: AppPT) {
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             Todolist
                         </Typography>
+                        {isLoggedIn && 'userName'}
                         {isLoggedIn && <Button color={'inherit'} onClick={logoutHandler}>log out</Button>}
                     </Toolbar>
                     {status === 'loading' ? <LinearProgress color="secondary"/> : ''}
