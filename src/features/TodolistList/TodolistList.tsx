@@ -1,20 +1,19 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStoreType} from '../../app/store';
-import {TaskStatuses} from '../../api/todolists-api';
-import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './tasks-reducer';
-import React, {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStoreType} from "../../app/store";
+import {TaskStatuses} from "../../api/todolists-api";
+import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "./tasks-reducer";
+import React, {useCallback, useEffect} from "react";
 import {
-    addTodolistTC,
-    changeTodolistFilterAC,
+    addTodolistTC, changeTodolistFilterAC,
     changeTodolistTitleTC,
     fetchTodolistsTC,
     FilterValueType,
     removeTodolistTC, TodolistDomainType
-} from './todolists-reducer';
-import {Grid, Paper} from '@mui/material';
-import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
-import {TodoList} from './Todolist/TodoList';
-import {useNavigate} from 'react-router-dom';
+} from "./todolists-reducer";
+import {Grid, Paper} from "@mui/material";
+import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {TodoList} from "./Todolist/TodoList";
+import {useNavigate} from "react-router-dom";
 
 type TodolistListPT = {
     demo?: boolean
@@ -33,7 +32,7 @@ export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
         }
         if (!isLoggedIn) {
             // debugger
-            navigate('/login')
+            navigate("/login")
         }
         isLoggedIn && dispatch(fetchTodolistsTC())
     }, [isLoggedIn])
@@ -59,7 +58,7 @@ export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
     }, [])
 
     const changeFilter = useCallback((value: FilterValueType, todolistId: string) => {
-        const thunk = changeTodolistFilterAC(value, todolistId)
+        const thunk = changeTodolistFilterAC({filter: value, id: todolistId})
         dispatch(thunk)
     }, [])
 
@@ -83,7 +82,7 @@ export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
 
     return (
         <>
-            <Grid container style={{padding: '10px'}}>
+            <Grid container style={{padding: "10px"}}>
                 <AddItemForm addItem={addTodolist}/>
             </Grid>
             <Grid container spacing={12}>{todolists.map(tl => {
@@ -91,7 +90,7 @@ export const TodolistList = ({demo = false, ...props}: TodolistListPT) => {
                 return (
                     <Grid key={tl.id}
                           item>
-                        <Paper style={{padding: '10px'}}>
+                        <Paper style={{padding: "10px"}}>
                             <TodoList
                                 todolist={tl}
                                 tasks={tasksForToDoList}

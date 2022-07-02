@@ -11,7 +11,6 @@ ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
             <App/>
-
         </HashRouter>
     </Provider>
     , document.getElementById('root')
