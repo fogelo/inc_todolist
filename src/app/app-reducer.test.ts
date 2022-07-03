@@ -18,7 +18,7 @@ test("status should be set", () => {
     expect(endState.error).toBe(null)
 })
 test("error message should be set", () => {
-    const action = setAppErrorAC({error: "some error"})
+    const action = setAppErrorAC({error: "some error" })
     const endState = appReducer(startState, action)
 
     expect(endState.status).toBe("idle")
